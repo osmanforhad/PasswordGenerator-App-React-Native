@@ -17,8 +17,8 @@ export default function App() {
   const [isPassGenerated, setIsPassGenerated] = useState(false);
   const [lowercase, setLowercase] = useState(true);
   const [uppercase, setUppercase] = useState(false);
-  const [numbers, useNumbers] = useState(false);
-  const [symbols, useSymbols] = useState(false);
+  const [numbers, setNumbers] = useState(false);
+  const [symbols, setSymbols] = useState(false);
 
   /**
    * Method for Generate User input as
@@ -26,7 +26,29 @@ export default function App() {
    * @param passwordLength 
    */
   const generatedPasswordString = (passwordLength: number) => {
-    //
+    let characterList = '';
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const digitChars = '0123456789';
+    const specialChars = '!@#$%^&*( )_+';
+
+    if (uppercase) {
+      characterList += uppercase;
+    }
+    if (lowercase) {
+      characterList += lowercase;
+    }
+    if (numbers) {
+      characterList += numbers;
+    }
+    if (symbols) {
+      characterList += symbols;
+    }
+
+    const finalPassword = createPassword(characterList, passwordLength);
+    setPassword(finalPassword);
+    setIsPassGenerated(true);
+
   }
 
   /**
@@ -41,6 +63,7 @@ export default function App() {
       result += characters.charAt(characterIndex);
     }
     return result;
+    console.log("osman");
   }
 
   /**
@@ -48,7 +71,12 @@ export default function App() {
    * functionality
    */
   const resetPasswordState = () => {
-    //
+    setPassword('');
+    setIsPassGenerated(false);
+    setLowercase(true);
+    setUppercase(false);
+    setNumbers(false);
+    setSymbols(false);
   }
 
   return (
